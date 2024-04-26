@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/LoginFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/LoginFragment"
         android:name="com.slf.latihanch4.LoginFragment"
         android:label="@string/title_activity_login"
         tools:layout="@layout/fragment_login">
@@ -16,8 +16,8 @@
             app:destination="@id/SecondFragment" />
 
         <action
-            android:id="@+id/action_ButtonRegister_to_FragmentRegister"
-            app:destination="@id/register" />
+            android:id="@+id/action_LoginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -26,14 +26,17 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_SecondFragment_to_LoginFragment"
+            app:destination="@id/LoginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/register"
-        android:name="com.slf.latihanch4.Register"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
-
+        android:id="@+id/registerFragment"
+        android:name="com.slf.latihanch4.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 
 </navigation>
