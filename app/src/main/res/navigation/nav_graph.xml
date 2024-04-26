@@ -7,13 +7,17 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.slf.latihanch4.FirstFragment"
+        android:name="com.slf.latihanch4.LoginFragment"
         android:label="@string/title_activity_login"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_login">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_LoginFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+
+        <action
+            android:id="@+id/action_ButtonRegister_to_FragmentRegister"
+            app:destination="@id/register" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +29,11 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/register"
+        android:name="com.slf.latihanch4.Register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+
+
 </navigation>
