@@ -6,6 +6,12 @@
     android:padding="16dp"
     tools:context=".SecondFragment">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+
     <Button
         android:id="@+id/button_second"
         android:layout_width="wrap_content"
@@ -36,4 +42,5 @@
         app:srcCompat="@drawable/add_box_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
