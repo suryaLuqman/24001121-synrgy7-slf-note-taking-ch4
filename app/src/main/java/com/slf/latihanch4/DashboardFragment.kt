@@ -11,18 +11,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.slf.latihanch4.databinding.FragmentSecondBinding
+import com.slf.latihanch4.databinding.FragmentDashboardBinding
 
-class SecondFragment : Fragment() {
+class DashboardFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true) // Ensure that the options menu is created
         return binding.root
     }
@@ -38,11 +38,11 @@ class SecondFragment : Fragment() {
 
         // Atur navigasi kembali ke LoginFragment
         toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_LoginFragment)
+            findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
         }
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_LoginFragment)
+            findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
         }
 
         binding.fab.setOnClickListener { view ->
@@ -55,6 +55,10 @@ class SecondFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu
         inflater.inflate(R.menu.menu_main, menu)
+        menu.findItem(R.id.action_settings).setOnMenuItemClickListener {
+            findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
+            true
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 

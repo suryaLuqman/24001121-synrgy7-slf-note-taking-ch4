@@ -13,20 +13,20 @@
 
         <action
             android:id="@+id/action_LoginFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/DashboardFragment" />
 
         <action
             android:id="@+id/action_LoginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.slf.latihanch4.SecondFragment"
+        android:id="@+id/DashboardFragment"
+        android:name="com.slf.latihanch4.DashboardFragment"
         android:label="@string/welcome"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_dashboard">
 
         <action
-            android:id="@+id/action_SecondFragment_to_LoginFragment"
+            android:id="@+id/action_DashboardFragment_to_LoginFragment"
             app:destination="@id/LoginFragment" />
     </fragment>
     <fragment
@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/DashboardFragment" />
         <action
             android:id="@+id/action_registerFragment_to_LoginFragment"
             app:destination="@id/LoginFragment" />
