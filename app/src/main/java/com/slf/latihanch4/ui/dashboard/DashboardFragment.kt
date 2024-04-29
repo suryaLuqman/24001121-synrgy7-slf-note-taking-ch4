@@ -1,9 +1,10 @@
-package com.slf.latihanch4
+package com.slf.latihanch4.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.slf.latihanch4.R
+import com.slf.latihanch4.data.SharedPreferencesHelper
 import com.slf.latihanch4.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -34,12 +37,6 @@ class DashboardFragment : Fragment() {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_dashboard)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // Atur navigasi kembali ke LoginFragment
-        toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
-        }
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
@@ -56,10 +53,19 @@ class DashboardFragment : Fragment() {
         // Inflate the menu
         inflater.inflate(R.menu.menu_main, menu)
         menu.findItem(R.id.action_settings).setOnMenuItemClickListener {
-            findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
+            // Panggil metode untuk logout dan hapus data login dari SharedPreferences
+            logout()
+            //findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
             true
         }
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun logout() {
+        // Panggil metode untuk menghapus data login dari SharedPreferences
+        SharedPreferencesHelper.setIsLogin(requireContext(), false)
+        // Navigasi ke halaman login
+        findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
     }
 
     override fun onDestroyView() {

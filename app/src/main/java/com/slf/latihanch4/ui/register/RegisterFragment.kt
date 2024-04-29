@@ -1,4 +1,4 @@
-package com.slf.latihanch4
+package com.slf.latihanch4.ui.register
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.slf.latihanch4.databinding.FragmentRegisterBinding
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.slf.latihanch4.R
 
 class RegisterFragment : Fragment() {
 
