@@ -2,11 +2,13 @@ package com.slf.latihanch4.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.slf.latihanch4.data.model.Note
 import com.slf.latihanch4.databinding.NoteItemBinding
 
-class NoteAdapter(private val notes: List<Note>, private val listener: NoteListener) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter(private val listener: NoteListener) : ListAdapter<Note, NoteAdapter.NoteViewHolder>(NoteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -15,11 +17,9 @@ class NoteAdapter(private val notes: List<Note>, private val listener: NoteListe
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val note = notes[position]
+        val note = getItem(position)
         holder.bind(note)
     }
-
-    override fun getItemCount(): Int = notes.size
 
     inner class NoteViewHolder(private val binding: NoteItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(note: Note) {
@@ -39,5 +39,15 @@ class NoteAdapter(private val notes: List<Note>, private val listener: NoteListe
     interface NoteListener {
         fun onEditClicked(note: Note)
         fun onDeleteClicked(note: Note)
+    }
+
+    class NoteDiffCallback : DiffUtil.ItemCallback<Note>() {
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem == newItem
+        }
     }
 }

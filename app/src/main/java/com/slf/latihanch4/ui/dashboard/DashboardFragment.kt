@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -25,8 +26,7 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    // Dummy list of notes (you should replace this with your actual data source)
-    private val notes = mutableListOf<Note>()
+    private val viewModel: DashboardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +43,7 @@ class DashboardFragment : Fragment() {
         // Setup RecyclerView
         val recyclerView = binding.recyclerViewNotes
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = NoteAdapter(notes, object : NoteAdapter.NoteListener {
+        recyclerView.adapter = NoteAdapter(object : NoteAdapter.NoteListener {
             override fun onEditClicked(note: Note) {
                 // Handle edit action
                 Log.d("DashboardFragment", "Note edited: $note")
@@ -55,8 +55,11 @@ class DashboardFragment : Fragment() {
             }
         })
 
-        // Load notes (replace this with your actual logic to fetch notes)
-        loadNotes()
+        // Observe the notes LiveData from the ViewModel
+        viewModel.notes.observe(viewLifecycleOwner) { notes ->
+            // Update the RecyclerView adapter
+            (binding.recyclerViewNotes.adapter as NoteAdapter).submitList(notes)
+        }
 
         // Atur toolbar
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
@@ -76,7 +79,6 @@ class DashboardFragment : Fragment() {
         menu.findItem(R.id.action_settings).setOnMenuItemClickListener {
             // Panggil metode untuk logout dan hapus data login dari SharedPreferences
             logout()
-            //findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
             true
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -87,16 +89,6 @@ class DashboardFragment : Fragment() {
         SharedPreferencesHelper.setIsLogin(requireContext(), false)
         // Navigasi ke halaman login
         findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
-    }
-
-    private fun loadNotes() {
-        // Here you should fetch your notes from your data source
-        // For example, you can add some dummy data like this:
-        notes.add(Note(1, "title 1", "Content 1"))
-        notes.add(Note(2, "title 2", "Content 2"))
-        notes.add(Note(3, "title 3", "Content 3"))
-        // Notify the adapter that the data set has changed
-        binding.recyclerViewNotes.adapter?.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {
