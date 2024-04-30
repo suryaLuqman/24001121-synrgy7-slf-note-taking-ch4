@@ -74,14 +74,21 @@ class LoginFragment : Fragment() {
         val storedUsername = sharedPreferences.getString("username", "")
         val storedPassword = sharedPreferences.getString("password", "")
 
-        if (username == storedUsername && password == storedPassword) {
-            return true
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter username and password", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (username != storedUsername) {
+            Toast.makeText(requireContext(), "Username not found", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (password != storedPassword) {
+            Toast.makeText(requireContext(), "Incorrect password", Toast.LENGTH_SHORT).show()
+            return false
         }
 
-        // Tampilkan pesan error
-        Toast.makeText(requireContext(), "Invalid credentials", Toast.LENGTH_SHORT).show()
-        return false
+        // If none of the above conditions are met, then the login is successful
+        return true
     }
+
 
     private fun saveLoginStatus(username: String, password: String) {
         // Panggil metode untuk menyimpan status login ke SharedPreferences
