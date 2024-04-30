@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.slf.latihanch4.R
 import com.slf.latihanch4.data.SharedPreferencesHelper
 import com.slf.latihanch4.databinding.FragmentLoginBinding
+import android.widget.Toast
 
 class LoginFragment : Fragment() {
 
@@ -54,9 +55,14 @@ class LoginFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_login)
 
         binding.buttonSignin.setOnClickListener {
-            // Panggil metode untuk menyimpan status login ketika berhasil login
-            saveLoginStatus()
-            findNavController().navigate(R.id.action_LoginFragment_to_SecondFragment)
+            val username = binding.username.text.toString()
+            val password = binding.password.text.toString()
+
+            if (validateLogin(username, password)) {
+                // Panggil metode untuk menyimpan status login ketika berhasil login
+                saveLoginStatus(username, password)
+                findNavController().navigate(R.id.action_LoginFragment_to_SecondFragment)
+            }
         }
 
         binding.buttonRegister.setOnClickListener {
@@ -64,7 +70,20 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun saveLoginStatus() {
+    private fun validateLogin(username: String, password: String): Boolean {
+        val storedUsername = sharedPreferences.getString("username", "")
+        val storedPassword = sharedPreferences.getString("password", "")
+
+        if (username == storedUsername && password == storedPassword) {
+            return true
+        }
+
+        // Tampilkan pesan error
+        Toast.makeText(requireContext(), "Invalid credentials", Toast.LENGTH_SHORT).show()
+        return false
+    }
+
+    private fun saveLoginStatus(username: String, password: String) {
         // Panggil metode untuk menyimpan status login ke SharedPreferences
         SharedPreferencesHelper.setIsLogin(requireContext(), true)
     }
