@@ -1,5 +1,7 @@
 package com.slf.latihanch4.ui.dashboard
 
+import EditNoteDialogFragment
+import NewNoteDialogFragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -47,6 +49,8 @@ class DashboardFragment : Fragment() {
             override fun onEditClicked(note: Note) {
                 // Handle edit action
                 Log.d("DashboardFragment", "Note edited: $note")
+                val dialog = EditNoteDialogFragment()
+                dialog.show(childFragmentManager, "EditNoteDialogFragment")
             }
 
             override fun onDeleteClicked(note: Note) {
@@ -67,9 +71,11 @@ class DashboardFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_dashboard)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null)
+//                .setAnchorView(R.id.fab).show()
+            val dialog = NewNoteDialogFragment()
+            dialog.show(childFragmentManager, "NewNoteDialogFragment")
         }
     }
 
