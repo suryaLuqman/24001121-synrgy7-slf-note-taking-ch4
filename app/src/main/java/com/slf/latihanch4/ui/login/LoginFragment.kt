@@ -55,33 +55,39 @@ class LoginFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_login)
 
         binding.buttonSignin.setOnClickListener {
-            val username = binding.username.text.toString()
+            val email = binding.username.text.toString() // Ubah ini
             val password = binding.password.text.toString()
 
-            if (validateLogin(username, password)) {
-                // Panggil metode untuk menyimpan status login ketika berhasil login
-                saveLoginStatus(username, password)
+            if (validateLogin(email, password)) {
+                saveLoginStatus(email, password)
                 findNavController().navigate(R.id.action_LoginFragment_to_SecondFragment)
             }
         }
+
 
         binding.buttonRegister.setOnClickListener {
             findNavController().navigate(R.id.action_LoginFragment_to_registerFragment)
         }
     }
 
-    private fun validateLogin(username: String, password: String): Boolean {
-        val storedUsername = sharedPreferences.getString("username", "")
+    private fun validateLogin(email: String, password: String): Boolean {
+        val storedEmail = sharedPreferences.getString("email", "")
         val storedPassword = sharedPreferences.getString("password", "")
 
-        if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(requireContext(), "Please enter username and password", Toast.LENGTH_SHORT).show()
+        // Validasi email
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(requireContext(), "Invalid email", Toast.LENGTH_SHORT).show()
             return false
-        } else if (username != storedUsername) {
-            Toast.makeText(requireContext(), "Username not found", Toast.LENGTH_SHORT).show()
+        }
+
+        // Validasi password
+        if (password.length < 8) {
+            Toast.makeText(requireContext(), "Password should be at least 8 characters", Toast.LENGTH_SHORT).show()
             return false
-        } else if (password != storedPassword) {
-            Toast.makeText(requireContext(), "Incorrect password", Toast.LENGTH_SHORT).show()
+        }
+
+        if (email != storedEmail || password != storedPassword) {
+            Toast.makeText(requireContext(), "Incorrect email or password", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -90,10 +96,12 @@ class LoginFragment : Fragment() {
     }
 
 
-    private fun saveLoginStatus(username: String, password: String) {
-        // Panggil metode untuk menyimpan status login ke SharedPreferences
+
+
+    private fun saveLoginStatus(email: String, password: String) { // Ubah ini
         SharedPreferencesHelper.setIsLogin(requireContext(), true)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
