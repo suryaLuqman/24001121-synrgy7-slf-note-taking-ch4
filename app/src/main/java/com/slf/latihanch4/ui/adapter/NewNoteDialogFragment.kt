@@ -1,3 +1,5 @@
+package com.slf.latihanch4.ui.adapter
+
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -6,8 +8,15 @@ import com.slf.latihanch4.R
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import com.slf.latihanch4.data.model.Note
+import com.slf.latihanch4.ui.dashboard.DashboardViewModel
+import kotlinx.coroutines.launch
 
 class NewNoteDialogFragment : DialogFragment() {
+
+    private val viewModel: DashboardViewModel by activityViewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
@@ -15,13 +24,18 @@ class NewNoteDialogFragment : DialogFragment() {
             val inflater = requireActivity().layoutInflater;
             val view = inflater.inflate(R.layout.fragment_new_note, null)
 
+            val titleEditText = view.findViewById<EditText>(R.id.editTextTitle)
+            val contentEditText = view.findViewById<EditText>(R.id.editTextContent)
+
             builder.setView(view)
                 .setPositiveButton("Create") { _, _ ->
-                    val title = view.findViewById<EditText>(R.id.editTextTitle).text.toString()
-                    val content = view.findViewById<EditText>(R.id.editTextContent).text.toString()
+                    val title = titleEditText.text.toString()
+                    val content = contentEditText.text.toString()
 
                     // Handle create note action
-                    // You need to replace this with your actual logic to create a new note
+                    lifecycleScope.launch {
+                        viewModel.insert(Note(0, title, content))
+                    }
                     Toast.makeText(context, "New note created: $title, $content", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("Cancel") { _, _ ->

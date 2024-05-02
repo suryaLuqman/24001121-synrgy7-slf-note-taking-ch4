@@ -1,19 +1,18 @@
 package com.slf.latihanch4.ui.register
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.slf.latihanch4.databinding.FragmentRegisterBinding
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.slf.latihanch4.R
-import android.widget.Toast
-import android.content.Context
-import android.content.SharedPreferences
-import com.slf.latihanch4.data.SharedPreferencesHelper
+import com.slf.latihanch4.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
 

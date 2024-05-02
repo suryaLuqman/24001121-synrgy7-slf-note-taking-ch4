@@ -1,26 +1,31 @@
-// DashboardViewModel.kt
 package com.slf.latihanch4.ui.dashboard
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
+import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.slf.latihanch4.data.model.Note
+import com.slf.latihanch4.data.room.appDb // Ubah ini
 
-class DashboardViewModel : ViewModel() {
+class DashboardViewModel(application: Application) : AndroidViewModel(application) {
+    private val db = Room.databaseBuilder(
+        application,
+        appDb::class.java, "database-name" // Ubah ini
+    ).build()
 
-    private val _notes = MutableLiveData<List<Note>>()
-    val notes: LiveData<List<Note>> get() = _notes
+    val notes = db.noteDao().getAll()
 
-    init {
-        loadNotes()
+    suspend fun insert(note: Note) = withContext(Dispatchers.IO) {
+        db.noteDao().insert(note)
     }
 
-    private fun loadNotes() {
-        // Replace this with your actual logic to fetch notes
-        val dummyNotes = mutableListOf<Note>()
-        dummyNotes.add(Note(1, "title 1", "Content 1"))
-        dummyNotes.add(Note(2, "title 2", "Content 2"))
-        dummyNotes.add(Note(3, "title 3", "Content 3"))
-        _notes.value = dummyNotes
+    suspend fun update(note: Note) = withContext(Dispatchers.IO) {
+        db.noteDao().update(note)
+    }
+
+    suspend fun delete(note: Note) = withContext(Dispatchers.IO) {
+        db.noteDao().delete(note)
     }
 }
