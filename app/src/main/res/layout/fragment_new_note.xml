@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -6,25 +8,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/cancelID"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|top"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_close" />
 
         <EditText
-            android:id="@+id/editTextTitle"
+            android:id="@+id/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title" />
+            android:hint="Title"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_background" />
 
         <EditText
-            android:id="@+id/editTextContent"
+            android:id="@+id/TextContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Content" />
+            android:layout_marginTop="5dp"
+            android:hint="Content"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:background="@drawable/edit_text_background" />
 
-<!--        <Button-->
-<!--            android:id="@+id/buttonCreate"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Create" />-->
+        <Button
+            android:id="@+id/ok_btn_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/save_note"
+            android:textColor="@color/white"
+            app:backgroundTint="#6750A4" />
 
     </LinearLayout>
 

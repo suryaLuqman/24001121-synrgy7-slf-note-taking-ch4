@@ -25,4 +25,5 @@
 <!--    string untuk update note-->
     <string name="update_note">Update</string>
     <string name="action_logout">Logout</string>
+    <string name="save_note">Save</string>
 </resources>
