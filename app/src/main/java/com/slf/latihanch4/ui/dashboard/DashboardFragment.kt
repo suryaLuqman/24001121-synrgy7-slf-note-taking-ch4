@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.slf.latihanch4.R
 import com.slf.latihanch4.data.SharedPreferencesHelper
@@ -105,7 +106,7 @@ class DashboardFragment : Fragment() {
 
     private fun logout() {
         SharedPreferencesHelper.setIsLogin(requireContext(), false)
-        requireActivity().finish()
+        findNavController().navigate(R.id.action_DashboardFragment_to_LoginFragment)
     }
 
     override fun onDestroyView() {
