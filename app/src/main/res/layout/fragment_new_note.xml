@@ -20,11 +20,11 @@
             android:layout_height="wrap_content"
             android:hint="Content" />
 
-        <Button
-            android:id="@+id/buttonCreate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create" />
+<!--        <Button-->
+<!--            android:id="@+id/buttonCreate"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Create" />-->
 
     </LinearLayout>
 
