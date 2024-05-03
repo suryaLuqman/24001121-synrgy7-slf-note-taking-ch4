@@ -1,6 +1,8 @@
 package com.slf.latihanch4.ui.dashboard
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,6 +33,9 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: DashboardViewModel by viewModels()
+
+    // Deklarasikan sharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,23 +77,29 @@ class DashboardFragment : Fragment() {
         })
 
         // Observe the notes LiveData from the ViewModel
-//        viewModel.notes.observe(viewLifecycleOwner) { notes ->
-//            // Update the RecyclerView adapter
-//            (binding.recyclerViewNotes.adapter as NoteAdapter).submitList(notes)
-//        }
-        // Observe the notes LiveData from the ViewModel
         viewModel.notes.observe(viewLifecycleOwner) { notes ->
             // Update the RecyclerView adapter
-            val adapter = binding.recyclerViewNotes.adapter as NoteAdapter
-            adapter.submitList(notes)
-            adapter.notifyDataSetChanged() // Force RecyclerView to update
+            (binding.recyclerViewNotes.adapter as NoteAdapter).submitList(notes)
         }
 
+        // Inisialisasi SharedPreferences
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
-        // Atur toolbar
+        // Dapatkan username dari SharedPreferences
+        val username = sharedPreferences.getString("username", "")
+
+// Atur toolbar
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_dashboard)
+
+// Atur judul toolbar menjadi "Welcome, {username}"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Welcome, $username"
+
+
+//        // Atur toolbar
+//        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
+//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+//        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_activity_dashboard)
 
         binding.fab.setOnClickListener {
             val dialog = NewNoteDialogFragment()

@@ -47,7 +47,8 @@ class NoteAdapter(private val listener: NoteListener) : ListAdapter<Note, NoteAd
         }
 
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
-            return oldItem == newItem
+            return oldItem.title == newItem.title && oldItem.content == newItem.content
         }
+
     }
 }

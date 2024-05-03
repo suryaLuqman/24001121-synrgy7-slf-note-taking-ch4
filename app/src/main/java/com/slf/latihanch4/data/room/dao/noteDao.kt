@@ -6,13 +6,13 @@ import com.slf.latihanch4.data.model.Note
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM note")
+    @Query("SELECT * FROM note ORDER BY id DESC")
     fun getAll(): LiveData<List<Note>>
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun insert(note: Note)
 
-    @Update
+    @Update (onConflict = OnConflictStrategy.REPLACE)
     fun update(note: Note)
 
     @Delete
